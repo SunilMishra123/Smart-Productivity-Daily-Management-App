@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Expo
+.expo/
+.expo-shared/
+dist/
+web-build/
+.expo-shared/
+.eas/
+
+# Native folders (expo prebuild se bante hai, push nahi karne)
+android/
+ios/
+
+# Env & Secrets
+.env
+.env.local
+*.env
+
+# Build files - bahut heavy hote hai
+*.apk
+*.aab
+*.ipa
+build/
+*.keystore
+*.jks
+
+# Logs
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Firebase / Google services (agar hai toh secret hai)
+google-services.json
+GoogleService-Info.plist
