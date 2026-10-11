@@ -2,14 +2,10 @@
   "expo": {
     "name": "SmartFlowApp",
     "slug": "SmartFlowApp",
-    "updates": {
-      "enabled": false
-    },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
-    "plugins": [
-      "@react-native-community/datetimepicker"
-    ]
+    "scheme": "smartflow",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "updates": { "enabled": false },
+    "web": { "bundler": "metro" }
   }
 }

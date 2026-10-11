@@ -3,13 +3,21 @@ import { View, Text, ScrollView, StyleSheet, TouchableOpacity, RefreshControl } 
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const getGreeting = () => {
+  const hour = new Date().getHours();
+  if (hour < 12) return { text: 'Good Morning', emoji: '☀️' };
+  if (hour < 17) return { text: 'Good Afternoon', emoji: '🌤️' };
+  if (hour < 21) return { text: 'Good Evening', emoji: '🌆' };
+  return { text: 'Good Night', emoji: '🌙' };
+};
+
 export default function DashboardScreen() {
   const navigation = useNavigation();
   const [data, setData] = useState({ tasks: [], expenses: [], events: [] });
   const [refreshing, setRefreshing] = useState(false);
+  const greeting = getGreeting();
 
   const loadData = async () => {
-    // Yahan tumhara real API call aayega, abhi ke liye AsyncStorage / mock
     // Example: const res = await fetch(`http://IP:5000/api/dashboard/${userId}`)
     setData({
       tasks: [
@@ -41,7 +49,7 @@ export default function DashboardScreen() {
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text style={styles.greet}>Good Evening 🌆</Text>
+          <Text style={styles.greet}>{greeting.text} {greeting.emoji}</Text>
           <Text style={styles.subGreet}>Great work today!</Text>
           <View style={styles.timePill}><Text style={styles.timeText}>● {new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})} • {new Date().toLocaleDateString('en-GB', {day:'numeric', month:'short'})}</Text></View>
         </View>
@@ -55,7 +63,6 @@ export default function DashboardScreen() {
         <View style={[styles.statCard, {backgroundColor:'#F59E0B'}]}><Text style={styles.statLabel}>Pending</Text><Text style={styles.statNum}>{pending}</Text><View style={styles.statLine} /></View>
       </View>
 
-      {/* Daily Summary - YE MISSING THA */}
       <View style={styles.summaryCard}>
         <Text style={styles.sectionTitle}>Daily Summary</Text>
         <View style={styles.summaryRow}>
@@ -77,7 +84,6 @@ export default function DashboardScreen() {
         </View>
       ))}
 
-      {/* Today's Expenses - YE MISSING THA */}
       <View style={styles.sectionHeader}><Text style={styles.sectionTitle}>Today's Expenses</Text><TouchableOpacity onPress={() => navigation.navigate('Expenses')} style={styles.viewAllBtn}><Text style={styles.viewAll}>View All →</Text></TouchableOpacity></View>
       <View style={styles.expenseBox}>
         {data.expenses.length === 0 ? <Text style={styles.empty}>No expenses today</Text> : data.expenses.map(exp => (
@@ -90,7 +96,6 @@ export default function DashboardScreen() {
         <View style={styles.totalRow}><Text style={styles.totalLabel}>Total Spent</Text><Text style={styles.totalVal}>₹{todayExpense}</Text></View>
       </View>
 
-      {/* Important Reminders - YE MISSING THA */}
       <View style={styles.sectionHeader}><Text style={styles.sectionTitle}>Important Reminders</Text><TouchableOpacity onPress={() => navigation.navigate('Events')} style={styles.viewAllBtn}><Text style={styles.viewAll}>View All →</Text></TouchableOpacity></View>
       <View style={styles.expenseBox}>
         {data.events.length === 0 ? <Text style={styles.empty}>No reminders</Text> : data.events.map(ev => (
@@ -101,7 +106,6 @@ export default function DashboardScreen() {
         ))}
       </View>
 
-      {/* Quick Add - REDESIGNED */}
       <Text style={[styles.sectionTitle, {marginTop:20}]}>Create New +</Text>
       <View style={styles.quickRow}>
         <TouchableOpacity style={[styles.quickCard, {backgroundColor:'#6366F1'}]} onPress={() => navigation.navigate('Tasks')}>

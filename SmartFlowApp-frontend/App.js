@@ -17,7 +17,6 @@ import AnalyticsScreen from './src/screens/AnalyticsScreen';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 LogBox.ignoreAllLogs(true);
-
 function MainTabs() {
   return (
     <Tab.Navigator
